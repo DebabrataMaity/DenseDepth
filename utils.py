@@ -46,8 +46,9 @@ def display_images(outputs, inputs=None, gt=None, is_colormap=True, is_rescale=T
     shape = (outputs[0].shape[0], outputs[0].shape[1], 3)
     
     all_images = []
-
+    c=0
     for i in range(outputs.shape[0]):
+        c+=1
         imgs = []
         
         if isinstance(inputs, (list, tuple, np.ndarray)):
@@ -68,6 +69,12 @@ def display_images(outputs, inputs=None, gt=None, is_colormap=True, is_rescale=T
             imgs.append(plasma(rescaled)[:,:,:3])
         else:
             imgs.append(to_multichannel(outputs[i]))
+
+        out_dir=r"/content/DenseDepth/outputs"
+        im=Image.fromarray(np.uint8(imgs[0]*255))
+        im2=Image.fromarray(np.uint8(imgs[1]*255))
+        im.save("{0}\\img_{1}color.png".format(out_dir,c))
+        im2.save("{0}\\img_{1}depth.png".format(out_dir,c))
 
         img_set = np.hstack(imgs)
         all_images.append(img_set)
