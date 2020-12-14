@@ -19,16 +19,16 @@ args = parser.parse_args()
 # Custom object needed for inference and training
 custom_objects = {'BilinearUpSampling2D': BilinearUpSampling2D, 'depth_loss_function': None}
 
-print('Loading model...')
+#print('Loading model...')
 
 # Load model into GPU / CPU
 model = load_model(args.model, custom_objects=custom_objects, compile=False)
 
-print('\nModel loaded ({0}).'.format(args.model))
+#print('\nModel loaded ({0}).'.format(args.model))
 
 # Input images
 inputs = load_images( glob.glob(args.input) )
-print('\nLoaded ({0}) images of size {1}.'.format(inputs.shape[0], inputs.shape[1:]))
+#print('\nLoaded ({0}) images of size {1}.'.format(inputs.shape[0], inputs.shape[1:]))
 
 # Compute results
 outputs = predict(model, inputs)
@@ -37,8 +37,8 @@ outputs = predict(model, inputs)
 #matplotlib.use('TkAgg')   
 
 # Display results
-viz = display_images(outputs.copy(), inputs.copy())
-plt.figure(figsize=(10,5))
-plt.imshow(viz)
-plt.savefig('test.png')
-plt.show()
+viz = display_images(outputs.copy(), inputs.copy(),is_colormap=False)
+#plt.figure(figsize=(10,5))
+#plt.imshow(viz)
+#plt.savefig('test.png')
+#plt.show()
